@@ -3,21 +3,30 @@
 describe('RequestFactory', function () {
   var RequestFactory,
     resourceConfig,
+    DEFAULT_REASON,
     $httpBackend;
 
   beforeEach(module('angular-abortable-requests'));
 
   //Takes the api from http/resource
-  function abortRequestTest (api, output) {
-     // abort the request
-    api.abort();
+  function abortRequestTest (api, output, reason) {
+    var expectedReason;
+
+    if (!angular.isDefined(reason)) {
+      expectedReason = DEFAULT_REASON;
+      api.abort();
+    } else {
+      expectedReason = reason;
+      api.abort(reason);
+    }
+
     // on reject
     api.promise.catch(function(err){
       output = err;
     });
 
     $httpBackend.flush();
-    expect(output).toEqual('ABORT');
+    expect(output).toEqual(expectedReason);
   }
 
   function resolveRequestTest (api, output) {
@@ -33,6 +42,7 @@ describe('RequestFactory', function () {
   beforeEach(inject(function ($injector) {
     RequestFactory = $injector.get('RequestFactory');
     $httpBackend = $injector.get('$httpBackend');
+    DEFAULT_REASON = $injector.get('DEFAULT_REASON');
     resourceConfig =  {
       url : '/proxy/test',
       options: null,
@@ -80,6 +90,12 @@ describe('RequestFactory', function () {
           var res, output;
           res = rInstance.get();
           abortRequestTest(res, output);
+        });
+
+        it('returns a promise which can be aborted with a custom reason', function() {
+          var res, output;
+          res = rInstance.get();
+          abortRequestTest(res, output, 'arbitrary reason');
         });
 
         it('returns a promise which resolves',
