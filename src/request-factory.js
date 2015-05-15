@@ -6,9 +6,10 @@
  */
 
 angular.module('angular-abortable-requests', ['ngResource'])
+  .constant('DEFAULT_REASON', 'ABORT')
   .factory('RequestFactory', [ '$resource', '$http',
-    'Util', '$q' ,function($resource, $http,
-    Util, $q) {
+    'Util', '$q', 'DEFAULT_REASON', function($resource, $http,
+    Util, $q, DEFAULT_REASON) {
 
     function abortablePromiseWrap (promise, deferred, outstanding) {
 
@@ -52,8 +53,8 @@ angular.module('angular-abortable-requests', ['ngResource'])
           return {
             promise: deferred.promise,
 
-            abort: function (){
-              deferred.reject('ABORT');
+            abort: function (reason) {
+              deferred.reject(getRejectReason(reason));
             }
 
           };
@@ -64,14 +65,22 @@ angular.module('angular-abortable-requests', ['ngResource'])
       * Abort all the outstanding requests on
       * this $resource
       */
-      resource.abortAll = function () {
+      resource.abortAll = function (reason) {
         angular.forEach(outstanding, function(deferred) {
-          deferred.reject('ABORT');
+          deferred.reject(getRejectReason(reason));
         });
         outstanding = [];
       };
 
       return resource;
+    }
+
+    function getRejectReason (reason) {
+      if (!angular.isDefined(reason)) {
+        return DEFAULT_REASON;
+      }
+
+      return reason;
     }
 
     function getHttpConfig (url) {
@@ -93,9 +102,9 @@ angular.module('angular-abortable-requests', ['ngResource'])
         /*
         * Abort all outstanding requests
         */
-        abortAll: function()  {
+        abortAll: function(reason) {
           angular.forEach(outstanding, function(deferred) {
-            deferred.reject('ABORT');
+            deferred.reject(getRejectReason(reason));
           });
           outstanding = [];
         },
@@ -130,8 +139,8 @@ angular.module('angular-abortable-requests', ['ngResource'])
 
             promise: deferred.promise,
 
-            abort: function() {
-              deferred.reject('ABORT');
+            abort: function(reason) {
+              deferred.reject(getRejectReason(reason));
             }
           };
         }
