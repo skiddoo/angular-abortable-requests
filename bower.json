@@ -1,9 +1,11 @@
 {
-  "name": "ng-abortable-requests",
+  "name": "skiddoo-ng-abortable-requests",
   "version": "1.0.0",
-  "homepage": "https://github.com/sathify/ng-abortable-requests",
+  "homepage": "https://github.com/skiddoo/ng-abortable-requests",
   "authors": [
-    "sathify <satheesh7@gmail.com>"
+    "sathify <satheesh7@gmail.com>",
+    "Javier Cejudo <javier.cejudo@skiddoo.com.au>",
+    "Jaie Wilson <jaie.wilson@skiddoo.com.au>"
   ],
   "description": "Abortable AJAX requests in AngularJS Applications",
   "main": "src/request-factory.js",

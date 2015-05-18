@@ -1,6 +1,6 @@
 {
-  "name": "ng-abortable-requests",
-  "version": "0.0.1",
+  "name": "skiddoo-ng-abortable-requests",
+  "version": "1.0.0",
   "description": "Abortable AJAX requests in AngularJS Applications",
   "main": "src/request-factory.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/sathify/ng-abortable-requests.git"
+    "url": "git://github.com/skiddoo/ng-abortable-requests.git"
   },
   "keywords": [
     "AngularJS",
@@ -25,9 +25,13 @@
     "karma-firefox-launcher": "*"
   },
   "author": "sathify <satheesh7@gmail.com>",
+  "maintainers": [
+    "Javier Cejudo <javier.cejudo@skiddoo.com.au>",
+    "Jaie Wilson <jaie.wilson@skiddoo.com.au>"
+  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sathify/ng-abortable-requests/issues"
+    "url": "https://github.com/skiddoo/ng-abortable-requests/issues"
   },
-  "homepage": "https://github.com/sathify/ng-abortable-requests"
+  "homepage": "https://github.com/skiddoo/ng-abortable-requests"
 }
