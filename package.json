@@ -1,6 +1,6 @@
 {
   "name": "skiddoo-ng-abortable-requests",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "description": "Abortable AJAX requests in AngularJS Applications",
   "main": "src/request-factory.js",
   "scripts": {
